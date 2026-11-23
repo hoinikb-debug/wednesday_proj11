@@ -17,6 +17,10 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--bg-dark);
   color: var(--text-main);
@@ -27,7 +31,10 @@ body {
   min-height: 100vh;
 }
 
-h1, h2, h3, .logo {
+h1,
+h2,
+h3,
+.logo {
   font-family: 'Oswald', sans-serif;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -38,27 +45,19 @@ a {
   color: inherit;
 }
 
-/* Навігація */
+/* Фіксована прозора навігація по центру */
 header {
-  background: var(--bg-header);
-  border-bottom: 1px solid var(--border);
-  position: sticky;
+  background: transparent;
+  border-bottom: none;
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 100;
-  padding: 15px 5%;
+  padding: 20px 5%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-}
-
-.logo {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--text-main);
-}
-
-.logo span {
-  color: var(--accent);
 }
 
 nav ul {
@@ -68,13 +67,15 @@ nav ul {
 }
 
 nav a {
-  font-weight: 500;
+  font-weight: 700;
   font-size: 15px;
   text-transform: uppercase;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85);
   transition: color 0.3s;
 }
 
-nav a:hover, nav a.active {
+nav a:hover,
+nav a.active {
   color: var(--accent);
 }
 
@@ -109,7 +110,7 @@ nav a:hover, nav a.active {
   background: var(--accent);
 }
 
-/* Контейнер */
+/* Контейнер для внутрішніх сторінок */
 main {
   flex: 1;
   width: 100%;
@@ -118,29 +119,344 @@ main {
   padding: 40px 20px;
 }
 
-/* Hero секція (Головна) */
+/* Головний Hero-банер з логотипом WARDOGS та кнопкою Steam */
 .hero {
-  background: linear-gradient(rgba(13, 15, 16, 0.6), rgba(13, 15, 16, 0.95)), 
-              url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=80') center/cover;
-  padding: 120px 5%;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hero-center {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  border-bottom: 2px solid var(--accent);
+  padding: 0 20px;
 }
 
-.hero h1 {
-  font-size: 64px;
-  margin-bottom: 15px;
-  line-height: 1.1;
+.wardogs-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.35));
 }
 
-.hero p {
+.brand-logo-img {
+  max-width: 460px;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.steam-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(54, 49, 28, 0.85);
+  border: 2px solid #d4a31e;
+  color: #ffffff;
+  padding: 12px 28px;
+  font-family: 'Roboto', sans-serif;
   font-size: 20px;
-  color: var(--text-muted);
-  max-width: 650px;
-  margin: 0 auto 30px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+  transition: transform 0.2s, background 0.2s;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* Сітка карток */
+.steam-btn:hover {
+  background: rgba(74, 67, 36, 0.95);
+  transform: translateY(-2px);
+}
+
+.steam-icon {
+  width: 32px;
+  height: 32px;
+  color: #ffffff;
+}
+
+.presskit-btn {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(4px);
+  color: #141414;
+  padding: 10px 26px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: background 0.2s;
+}
+
+.presskit-btn:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* Банер із карткою праворуч (3 Team Tactical Warfare) */
+.showcase-banner {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #0d0f10;
+  overflow: hidden;
+}
+
+.showcase-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.showcase-card {
+  position: absolute;
+  right: 5%;
+  z-index: 2;
+  width: 44%;
+  max-width: 680px;
+  min-width: 420px;
+  color: #ffffff;
+  backdrop-filter: blur(3px);
+}
+
+.showcase-header {
+  background: rgba(165, 168, 170, 0.56);
+  padding: 20px 28px;
+}
+
+.showcase-header h2 {
+  font-size: 38px;
+  line-height: 1.1;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.showcase-body {
+  background: rgba(92, 95, 98, 0.62);
+  padding: 22px 28px 28px;
+}
+
+.showcase-body p {
+  font-size: 19px;
+  line-height: 1.55;
+  color: #f3f4f6;
+}
+
+/* Банер із карткою ліворуч (Persistent Cash Metagame) */
+.metagame-banner {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #0d0f10;
+  overflow: hidden;
+}
+
+.metagame-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.metagame-card {
+  position: absolute;
+  left: 5%;
+  z-index: 2;
+  width: 48%;
+  max-width: 720px;
+  min-width: 420px;
+  color: #ffffff;
+  backdrop-filter: blur(3px);
+}
+
+.metagame-header {
+  background: rgba(165, 168, 170, 0.56);
+  padding: 20px 28px;
+}
+
+.metagame-header h2 {
+  font-size: 36px;
+  line-height: 1.1;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.metagame-body {
+  background: rgba(92, 95, 98, 0.62);
+  padding: 22px 28px 28px;
+}
+
+.metagame-lead {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.metagame-body p:last-child {
+  font-size: 18px;
+  line-height: 1.55;
+  color: #f3f4f6;
+}
+
+/* Банер із карткою праворуч (Play Your Way / 100% Sandbox) */
+.playway-banner {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #0d0f10;
+  overflow: hidden;
+}
+
+.playway-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.playway-card {
+  position: absolute;
+  right: 5%;
+  z-index: 2;
+  width: 46%;
+  max-width: 700px;
+  min-width: 420px;
+  color: #ffffff;
+  backdrop-filter: blur(3px);
+}
+
+.playway-header {
+  background: rgba(165, 168, 170, 0.56);
+  padding: 20px 28px;
+}
+
+.playway-header h2 {
+  font-size: 38px;
+  line-height: 1.1;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.playway-body {
+  background: rgba(92, 95, 98, 0.62);
+  padding: 22px 28px 28px;
+}
+
+.playway-lead {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+.playway-body p {
+  font-size: 18px;
+  line-height: 1.55;
+  color: #f3f4f6;
+}
+
+.playway-footer-note {
+  margin-top: 16px;
+}
+
+/* Банер із карткою ліворуч (Destruction & Base Building) */
+.destruction-banner {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #0d0f10;
+  overflow: hidden;
+}
+
+.destruction-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.destruction-card {
+  position: absolute;
+  left: 5%;
+  z-index: 2;
+  width: 46%;
+  max-width: 700px;
+  min-width: 420px;
+  color: #ffffff;
+  backdrop-filter: blur(3px);
+}
+
+.destruction-header {
+  background: rgba(165, 168, 170, 0.56);
+  padding: 20px 28px;
+}
+
+.destruction-header h2 {
+  font-size: 38px;
+  line-height: 1.1;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.destruction-body {
+  background: rgba(92, 95, 98, 0.62);
+  padding: 22px 28px 28px;
+}
+
+.destruction-lead {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.destruction-body p:last-child {
+  font-size: 18px;
+  line-height: 1.55;
+  color: #f3f4f6;
+}
+
+/* Великі секції для гортання */
+.section-block {
+  padding: 100px 20px;
+}
+
+.bg-alt {
+  background-color: #111315;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .section-title {
   font-size: 36px;
   margin-bottom: 30px;
@@ -148,11 +464,18 @@ main {
   padding-left: 15px;
 }
 
+/* Сітки карток */
 .grid-3 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 25px;
   margin-bottom: 50px;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
 }
 
 .card {
@@ -198,7 +521,54 @@ main {
   margin-bottom: 20px;
 }
 
-/* Галерея та таблиця */
+/* Нижній заклик до дії */
+.cta-banner {
+  background: linear-gradient(rgba(13, 15, 16, 0.8), rgba(13, 15, 16, 0.9)),
+    url('../images/wardogs-videojuego-14545.webp') center/cover;
+  padding: 100px 20px;
+  text-align: center;
+  border-top: 2px solid var(--accent);
+}
+
+.cta-banner h2 {
+  font-size: 46px;
+  margin-bottom: 15px;
+}
+
+.cta-banner p {
+  color: var(--text-muted);
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+/* Сторінка Скріншоти: сітка 4 колонки */
+main.screenshots-page {
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 80px 24px 50px;
+}
+
+main.screenshots-page .screenshots-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+main.screenshots-page .screenshots-grid img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+main.screenshots-page .screenshots-grid img:hover {
+  transform: scale(1.02);
+}
+
+/* Галерея та таблиця (media.html) */
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -220,7 +590,8 @@ table {
   margin-bottom: 40px;
 }
 
-th, td {
+th,
+td {
   padding: 15px;
   text-align: left;
   border: 1px solid var(--border);
@@ -233,7 +604,7 @@ th {
   text-transform: uppercase;
 }
 
-/* Форма замовлення */
+/* Форма замовлення (checkout.html) */
 .checkout-box {
   max-width: 600px;
   margin: 0 auto;
@@ -253,7 +624,8 @@ th {
   color: var(--text-muted);
 }
 
-.form-group input, .form-group select {
+.form-group input,
+.form-group select {
   width: 100%;
   padding: 12px;
   background: var(--bg-dark);
@@ -262,17 +634,188 @@ th {
   font-size: 16px;
 }
 
-.form-group input:focus, .form-group select:focus {
+.form-group input:focus,
+.form-group select:focus {
   outline: none;
   border-color: var(--accent);
 }
 
-/* Футер */
-footer {
-  background: #08090a;
-  border-top: 1px solid var(--border);
-  text-align: center;
-  padding: 30px 20px;
-  color: var(--text-muted);
-  font-size: 14px;
+/* Повноекранний лайтбокс */
+/* Повноекранний лайтбокс з анімацією відкриття та закриття */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 6, 7, 0.96);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.26s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.26s ease;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.lightbox.is-closing {
+  opacity: 0;
+  visibility: visible;
+  pointer-events: none;
+}
+
+.lightbox-stage {
+  position: relative;
+  z-index: 2001;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 92px;
+}
+
+.lightbox-stage img {
+  width: min(78vw, 1320px);
+  height: auto;
+  max-width: 78vw;
+  max-height: 88vh;
+  object-fit: contain;
+  cursor: zoom-in;
+  filter: none;
+  opacity: 0;
+  transform: scale(0.92) translateY(10px);
+  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.85);
+  transition:
+    opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lightbox.is-open .lightbox-stage img {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.lightbox.is-closing .lightbox-stage img {
+  opacity: 0;
+  transform: scale(0.93) translateY(8px);
+}
+
+.lightbox-stage img.is-zoomed {
+  max-width: none;
+  max-height: none;
+  width: auto;
+  height: auto;
+  opacity: 1;
+  transform: scale(1.35);
+  transform-origin: center center;
+  cursor: zoom-out;
+}
+
+
+
+
+
+
+/* Кнопки керування та стрілки лайтбокса */
+.lightbox-close,
+.lightbox-zoom {
+  position: fixed;
+  top: 20px;
+  z-index: 2050;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 17, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 6px 12px;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.lightbox-close {
+  right: 24px;
+}
+
+.lightbox-zoom {
+  left: 24px;
+  font-size: 24px;
+}
+
+.lightbox-close:hover,
+.lightbox-zoom:hover,
+.lightbox-nav:hover {
+  background: rgba(255, 85, 0, 0.9);
+  color: #ffffff;
+}
+
+.lightbox-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 64px;
+  background: rgba(15, 17, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 38px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.lightbox-prev {
+  left: 20px;
+}
+
+.lightbox-next {
+  right: 20px;
+}
+
+@media (max-width: 768px) {
+  .lightbox-stage {
+    padding: 64px 16px;
+  }
+
+  .lightbox-stage img {
+    width: 100%;
+    max-width: 100%;
+    max-height: 78vh;
+  }
+
+  .lightbox-stage img.is-zoomed {
+    max-width: none;
+    max-height: none;
+    width: auto;
+    height: auto;
+    transform: scale(1.5);
+  }
+
+  .lightbox-nav {
+    width: 40px;
+    height: 52px;
+    font-size: 32px;
+  }
+
+  .lightbox-prev {
+    left: 10px;
+  }
+
+  .lightbox-next {
+    right: 10px;
+  }
 }

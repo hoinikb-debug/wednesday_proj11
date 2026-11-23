@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Скріншоти — WARDOGS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Головна</a></li>
+        <li><a href="screenshots.html" class="active">Скріншоти</a></li>
+        <li><a href="index.html#classes">Класи</a></li>
+        <li><a href="editions.html">Видання</a></li>
+        <li><a href="media.html">Медіа та Вимоги</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="screenshots-page">
+    <div class="screenshots-grid">
+      <img src="images/screenshots/sc.avif" alt="Скріншот WARDOGS 1">
+      <img src="images/screenshots/sc1.avif" alt="Скріншот WARDOGS 2">
+      <img src="images/screenshots/sc2.avif" alt="Скріншот WARDOGS 3">
+      <img src="images/screenshots/sc3.avif" alt="Скріншот WARDOGS 4">
+
+      <img src="images/screenshots/sc4.avif" alt="Скріншот WARDOGS 5">
+      <img src="images/screenshots/sc5.avif" alt="Скріншот WARDOGS 6">
+      <img src="images/screenshots/sc6.avif" alt="Скріншот WARDOGS 7">
+      <img src="images/screenshots/sc7.avif" alt="Скріншот WARDOGS 8">
+
+      <img src="images/screenshots/sc8.avif" alt="Скріншот WARDOGS 9">
+      <img src="images/screenshots/sc9.avif" alt="Скріншот WARDOGS 10">
+      <img src="images/screenshots/sc10.avif" alt="Скріншот WARDOGS 11">
+      <img src="images/screenshots/sc11.avif" alt="Скріншот WARDOGS 12">
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 WARDOGS Interactive. Усі права захищено. Віковий рейтинг: 18+</p>
+  </footer>
+
+  <!-- Повноекранний лайтбокс -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button type="button" class="lightbox-zoom" id="lightboxZoom" title="Наблизити / Зменшити">⤢</button>
+    <button type="button" class="lightbox-close" id="lightboxClose" title="Закрити">&times;</button>
+
+    <button type="button" class="lightbox-nav lightbox-prev" id="lightboxPrev" title="Попереднє фото">&lsaquo;</button>
+
+    <div class="lightbox-stage" id="lightboxStage">
+      <img src="" alt="" id="lightboxImg">
+    </div>
+
+    <button type="button" class="lightbox-nav lightbox-next" id="lightboxNext" title="Наступне фото">&rsaquo;</button>
+  </div>
+
+  <script>
+    (function () {
+      const galleryImages = Array.from(document.querySelectorAll('.screenshots-grid img'));
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightboxImg');
+      const lightboxStage = document.getElementById('lightboxStage');
+      const btnClose = document.getElementById('lightboxClose');
+      const btnPrev = document.getElementById('lightboxPrev');
+      const btnNext = document.getElementById('lightboxNext');
+      const btnZoom = document.getElementById('lightboxZoom');
+
+      if (!galleryImages.length || !lightbox) return;
+
+      let currentIndex = 0;
+      let isZoomed = false;
+
+      function setZoom(zoomState) {
+        isZoomed = zoomState;
+        lightboxImg.classList.toggle('is-zoomed', isZoomed);
+        if (!isZoomed) {
+          lightboxStage.scrollTop = 0;
+          lightboxStage.scrollLeft = 0;
+        }
+      }
+
+      function openLightbox(index) {
+        currentIndex = index;
+        const target = galleryImages[currentIndex];
+        lightboxImg.src = target.src;
+        lightboxImg.alt = target.alt || 'Скріншот';
+        setZoom(false);
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        setZoom(false);
+      }
+
+      function showPrev() {
+        openLightbox((currentIndex - 1 + galleryImages.length) % galleryImages.length);
+      }
+
+      function showNext() {
+        openLightbox((currentIndex + 1) % galleryImages.length);
+      }
+
+      galleryImages.forEach((img, idx) => {
+        img.addEventListener('click', () => openLightbox(idx));
+      });
+
+      btnClose.addEventListener('click', closeLightbox);
+      btnPrev.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showPrev();
+      });
+      btnNext.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showNext();
+      });
+      btnZoom.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setZoom(!isZoomed);
+      });
+
+      lightboxImg.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setZoom(!isZoomed);
+      });
+
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target === lightboxStage) {
+          closeLightbox();
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('is-open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') showPrev();
+        if (e.key === 'ArrowRight') showNext();
+      });
+    })();
+  </script>
+
+</body>
+
+</html>
